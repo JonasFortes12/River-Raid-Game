@@ -1,0 +1,15 @@
+
+body{
+    min-width: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+canvas {
+    width: 320px;
+    height: 480px;
+    border: 1px solid #000;
+    display: block;
+    margin: 0 auto;
+}
