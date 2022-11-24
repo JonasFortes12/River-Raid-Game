@@ -13,9 +13,12 @@ function Ship(){
     
     this.element = newElement('img', 'ship')
     this.element.src = 'imgs/nave.png'
+    this.element.style.right = "500%"
 
-    this.getX = () => parseInt(this.element.style.left.split('px')[0])
-    this.setX = (x) => this.element.style.left = `${x}px`
+    // this.getX = () => parseInt(this.element.style.right.split('px')[0])
+    // this.getX = () => this.element.style
+    this.getX = () => parseInt(this.element.style.right.split('px')[0])
+    this.setX = (x) => this.element.style.right = `${x}px`
 
     document.addEventListener("keydown", (event) =>{
         switch(event.key){
@@ -44,14 +47,14 @@ function Ship(){
 
     this.animate = () => {
         
-        let newXposition
+        const motion = 10 //acrescimo de pixels por movimento
+        let newXposition = this.getX()
 
         if(this.goingRight){
-            newXposition = this.getX + 8;
+            newXposition = this.getX() - motion;
         }else if(this.goingLeft){
-            newXposition = this.getX - 8;
+            newXposition = this.getX() + motion;
         }
-        
         this.setX(newXposition)
     }
 
@@ -68,7 +71,7 @@ function RiverRaid(){
         const timer = setInterval(() =>{
 
             ship.animate()
-
+            
         }, 20)
 
     }
