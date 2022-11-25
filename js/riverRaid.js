@@ -5,7 +5,64 @@ function newElement(tagName, className) {
 }
 
 const gameArea = document.querySelector('[wm-RiverRaid]')
- 
+
+
+function Barries(){
+
+    this.bifurcation = [
+        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+        [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+        [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+      ];
+
+}
+
+function DrawBarries(barries){ // recebe uma matrix do cenário
+    // this.barries = new Barries()
+
+    for(let i in barries){
+        for(let j in barries[i]){
+
+            let tile = barries[i][j] //bloquinho
+
+            if(tile === 1){
+                let positionX = j*5
+                let positionY = i*5
+                
+                elementTile = newElement('div', 'tile')
+                elementTile.style.left = `${positionX}%`
+                elementTile.style.top = `${positionY}%`
+                elementTile.style.width = "5%"
+                elementTile.style.height = "5%"
+                elementTile.style.position = "absolute"
+
+                elementTile.style.backgroundColor = "green"
+
+                gameArea.appendChild(elementTile)
+                
+            }
+        }
+    }
+}
+
+
 function Ship(){
 
     this.goingRight = false
@@ -63,13 +120,16 @@ function Ship(){
 function RiverRaid(){
 
     const ship = new Ship()
+    const barries = new Barries()
+    DrawBarries(barries.bifurcation)
+    
 
     gameArea.appendChild(ship.element)
 
     this.start = () => {
 
         const timer = setInterval(() =>{
-
+            
             ship.animate()
             
         }, 20)
