@@ -129,20 +129,22 @@ function Barries(){
 function DrawBarries(barrie){ // recebe a matrix da barreira específica (cenário)
     // this.barries = new Barries()
 
-    for(let i in barrie){
-        for(let j in barrie[i]){
+    for(let row in barrie){
+        for(let column in barrie[row]){
 
-            let tile = barrie[i][j] //bloquinho
+            let tile = barrie[row][column] //bloquinho
+            let tileSize = 5 //tamanho do bloquinho
 
+        
             if(tile === 1){
-                let positionX = j*5
-                let positionY = i*5
+                let positionX = column*tileSize
+                let positionY = row*tileSize
                 
                 elementTile = newElement('div', 'tile')
                 elementTile.style.left = `${positionX}%`
                 elementTile.style.top = `${positionY}%`
-                elementTile.style.width = "5%"
-                elementTile.style.height = "5%"
+                elementTile.style.width = `${tileSize}%`
+                elementTile.style.height = `${tileSize}%`
                 elementTile.style.position = "absolute"
 
                 elementTile.style.backgroundColor = "green"
