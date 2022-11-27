@@ -127,33 +127,56 @@ function Barries(){
 }
 
 function DrawBarries(barrie){ // recebe a matrix da barreira específica (cenário)
-    // this.barries = new Barries()
+
+    this.gameContext = document.createElement("div");
+    this.gameContext.classList.add("barrieStyle");
+    
+    this.gameContext.style.position = `absolute`
+
+    this.gameContext.style.display = `grid`
+    this.gameContext.style.gridTemplateColumns = `repeat(20, 1fr)`;
+    this.gameContext.style.gridTemplateRows = `repeat(20, 1fr)`;
+
+    this.gameContext.style.width = "100%";
+    this.gameContext.style.height = "100%";
+    this.gameContext.style.top = "-1000px";
+
 
     for(let row in barrie){
         for(let column in barrie[row]){
 
             let tile = barrie[row][column] //bloquinho
-            let tileSize = 5 //tamanho do bloquinho
 
-        
             if(tile === 1){
-                let positionX = column*tileSize
-                let positionY = row*tileSize
-                
-                elementTile = newElement('div', 'tile')
-                elementTile.style.left = `${positionX}%`
-                elementTile.style.top = `${positionY}%`
-                elementTile.style.width = `${tileSize}%`
-                elementTile.style.height = `${tileSize}%`
-                elementTile.style.position = "absolute"
-
+                let elementTile = newElement("div", "barrie")
                 elementTile.style.backgroundColor = "green"
-
-                gameArea.appendChild(elementTile)
+                this.gameContext.appendChild(elementTile)
                 
+            }else if(tile === 0){
+                let elementTile = newElement("div", "air")
+                elementTile.style.backgroundColor = "lightblue"
+                this.gameContext.appendChild(elementTile)
+
             }
         }
     }
+
+    gameArea.appendChild(this.gameContext)
+
+    this.getY = () => parseInt(this.gameContext.style.top.split('px')[0]);
+    this.setY = (y) =>  this.gameContext.style.top = `${y}px`;
+
+    this.animate = () =>{
+
+        const motion = 5 //acrescimo de pixels por movimento
+        let newYposition = this.getY();
+
+        newYposition = this.getY() + motion;
+        
+        this.setY(newYposition)
+
+    }
+
 }
 
 function SortBarries(barries){ // recebe o objeto que contem todas as barreiras (cenários)
@@ -230,7 +253,7 @@ function RiverRaid(){
 
     const ship = new Ship()
     const barries = new Barries()
-    DrawBarries(SortBarries(barries))
+    const drawBarries = new DrawBarries(SortBarries(barries))
         
 
     gameArea.appendChild(ship.element)
@@ -240,7 +263,7 @@ function RiverRaid(){
         const timer = setInterval(() =>{
             
             ship.animate()
-            
+            drawBarries.animate()
             
         }, 20)
 

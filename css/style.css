@@ -29,11 +29,7 @@ body{
 }
 
 [wm-RiverRaid] {
-    /* display: grid;
-    grid-template-rows: repeat(20, 1fr);
-    grid-template-columns: repeat(20, 1fr); */
-    
-    
+
     position: relative;
     border: 5px solid dodgerblue;
     height: 100%;
