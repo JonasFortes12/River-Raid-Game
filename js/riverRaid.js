@@ -139,7 +139,7 @@ function DrawBarries(barrie){ // recebe a matrix da barreira específica (cenár
 
     this.gameContext.style.width = "100%";
     this.gameContext.style.height = "100%";
-    this.gameContext.style.top = "-1000px";
+    this.gameContext.style.top = "-500px";
 
 
     for(let row in barrie){
@@ -175,6 +175,9 @@ function DrawBarries(barrie){ // recebe a matrix da barreira específica (cenár
         
         this.setY(newYposition)
 
+        // if(this.getY() > 1000)
+        //     this.gameContext
+
     }
 
 }
@@ -192,6 +195,35 @@ function SortBarries(barries){ // recebe o objeto que contem todas as barreiras 
     return this.arrBarries[Math.floor(Math.random()*this.arrBarries.length)] // retorna uma barreira aleatória
 
 
+
+}
+
+function Cenary() {
+    const barries = new Barries()
+    
+    this.newCenary = () =>{
+        return new DrawBarries(SortBarries(barries))
+    }
+
+    let newCenary = this.newCenary()
+    let oldCenary
+
+    let timer = 0
+    let oldCenaryActive = false 
+    this.animate = () =>{ 
+        newCenary.animate()
+        if(oldCenaryActive)
+            oldCenary.animate()
+        timer += 1
+        
+        if(timer > 100){
+            oldCenary = newCenary
+            oldCenaryActive = true
+            newCenary = this.newCenary()
+            timer = 0
+        }
+        console.log(timer)
+    }
 
 }
 
@@ -251,9 +283,10 @@ function Ship(){
 
 function RiverRaid(){
 
+    const cenary = new Cenary()
     const ship = new Ship()
-    const barries = new Barries()
-    const drawBarries = new DrawBarries(SortBarries(barries))
+    // const barries = new Barries()
+    // const drawBarries = new DrawBarries(SortBarries(barries))
         
 
     gameArea.appendChild(ship.element)
@@ -263,7 +296,7 @@ function RiverRaid(){
         const timer = setInterval(() =>{
             
             ship.animate()
-            drawBarries.animate()
+            cenary.animate()
             
         }, 20)
 
