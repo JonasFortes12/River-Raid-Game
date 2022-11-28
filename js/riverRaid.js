@@ -154,14 +154,15 @@ function DrawBarries(barrie){ // recebe a matrix da barreira específica (cenár
                 
             }else if(tile === 0){
                 let elementTile = newElement("div", "air")
-                elementTile.style.backgroundColor = "lightblue"
+                elementTile.style.backgroundColor = "deepskyblue"
                 this.gameContext.appendChild(elementTile)
 
             }
         }
     }
 
-    gameArea.appendChild(this.gameContext)
+    // gameArea.appendChild(this.gameContext)
+    gameArea.insertAdjacentElement('afterbegin', this.gameContext);
 
     this.getY = () => parseInt(this.gameContext.style.top.split('px')[0]);
     this.setY = (y) =>  this.gameContext.style.top = `${y}px`;
@@ -178,6 +179,10 @@ function DrawBarries(barrie){ // recebe a matrix da barreira específica (cenár
         // if(this.getY() > 1000)
         //     this.gameContext
 
+    }
+
+    this.delete = () =>{
+        this.gameContext.parentNode.removeChild(this.gameContext)
     }
 
 }
@@ -208,21 +213,20 @@ function Cenary() {
     let newCenary = this.newCenary()
     let oldCenary
 
-    let timer = 0
-    let oldCenaryActive = false 
+    
     this.animate = () =>{ 
         newCenary.animate()
-        if(oldCenaryActive)
+        if(typeof oldCenary === 'object' && oldCenary !== null){
             oldCenary.animate()
-        timer += 1
-        
-        if(timer > 100){
-            oldCenary = newCenary
-            oldCenaryActive = true
-            newCenary = this.newCenary()
-            timer = 0
+
+            if(oldCenary.getY() == 500) oldCenary.delete()
         }
-        console.log(timer)
+
+        if(newCenary.getY() == 0){
+            oldCenary = newCenary
+            newCenary = this.newCenary()
+        }
+
     }
 
 }
@@ -236,8 +240,6 @@ function Ship(){
     this.element.src = 'imgs/nave.png'
     this.element.style.right = "500%"
 
-    // this.getX = () => parseInt(this.element.style.right.split('px')[0])
-    // this.getX = () => this.element.style
     this.getX = () => parseInt(this.element.style.right.split('px')[0])
     this.setX = (x) => this.element.style.right = `${x}px`
 
