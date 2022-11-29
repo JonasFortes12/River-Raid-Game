@@ -129,11 +129,8 @@ function Barries() {
 
 function DrawBarries(barrie) { // recebe a matrix da barreira específica (cenário)
 
-    this.gameContext = document.createElement("div");
-    this.gameContext.classList.add("barrieStyle");
-
+    this.gameContext = newElement("div", "barrieStyle")
     this.gameContext.style.position = `absolute`
-
     this.gameContext.style.display = `grid`
     this.gameContext.style.gridTemplateColumns = `repeat(20, 1fr)`;
     this.gameContext.style.gridTemplateRows = `repeat(20, 1fr)`;
