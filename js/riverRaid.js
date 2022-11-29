@@ -6,7 +6,8 @@ function newElement(tagName, className, idName) {
 }
 
 const gameArea = document.querySelector('[wm-RiverRaid]')
-
+const statsArea = document.querySelector('[wm-Stats]')
+let playing = false
 
 function Barries() {
 
@@ -197,8 +198,8 @@ function SortBarries(barries) { // recebe o objeto que contem todas as barreiras
         barries.toright,
         barries.toleft
     ]
-
-    return this.arrBarries[Math.floor(Math.random() * this.arrBarries.length)] // retorna uma barreira aleatória
+    let i = Math.floor(Math.random() * this.arrBarries.length)
+    return this.arrBarries[i] // retorna uma barreira aleatória
 }
 
 function Cenary() {
@@ -295,19 +296,58 @@ function Collid() {
             const horizontal = a.left + a.width >= b.left && b.left + b.width >= a.left
             const vertical = a.top + a.height >= b.top && b.top + b.height >= a.top
 
-            if(horizontal && vertical)
+            if (horizontal && vertical)
                 return true
         }
-      return false  
+        return false
 
     }
 
     this.verifyCollid = () => {
 
         if (this.isColliding())
-            alert("colidiu!")
+            window.location.reload(true);
 
     }
+
+}
+
+function Stats() {
+
+    this.title = newElement("div", "title")
+    this.title.append("River Raid")
+    this.title.style.color = 'Black'
+    // this.title.style.fontWeight = 'bold'
+    this.title.style.fontSize = "50px"
+
+    this.points = newElement("div", "points")
+    this.points.append("Pontuação: 0000")
+    this.points.style.color = 'Black'
+    this.points.style.fontWeight = 'bold'
+    this.points.style.fontSize = "25px"
+
+    this.btPlay = newElement("button", "btPlay")
+    this.btPlay.appendChild(document.createTextNode("JOGAR"))
+    this.btPlay.onclick = () => {
+       playing = !playing
+    }
+
+    statsArea.style.display = 'flex'
+    statsArea.style.flexDirection = 'column'
+    statsArea.style.justifyContent = 'flex-start'
+    statsArea.style.alignItems = 'center'
+    statsArea.appendChild(this.title)
+    statsArea.appendChild(this.points)
+    statsArea.appendChild(this.btPlay)
+
+    // --------------------Métodos-------------------------------
+
+    this.updatePoints = (points) => {
+        this.points.removeChild(this.points.firstChild);
+        this.points.appendChild(document.createTextNode(`Pontuação: ${points}`))
+
+    }
+
 
 }
 
@@ -316,22 +356,32 @@ function RiverRaid() {
 
     const cenary = new Cenary()
     const ship = new Ship()
+    const stats = new Stats()
 
     gameArea.appendChild(ship.element)
 
     const collid = new Collid()
 
-    this.start = () => {
+    this.play = () => {
         const timer = setInterval(() => {
-
             ship.animate()
-            cenary.animate()
-            collid.verifyCollid()
-
+            if (playing) {
+                cenary.animate()
+                collid.verifyCollid()
+            }
         }, 20)
-
     }
+
+    // this.stop = () => {
+    //     playing = false
+        
+    // }
+    // this.start = () => {
+    //     playing = true
+        
+    // }
+    
 }
 
 
-new RiverRaid().start()
+let riverRaid = new RiverRaid().play()

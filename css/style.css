@@ -23,7 +23,7 @@ body{
 
 .content {
     display: flex;
-    flex-direction: column;
+    flex-direction: line;
     align-items: center;
     min-height: 100%;
 }
@@ -34,8 +34,19 @@ body{
     border: 5px solid dodgerblue;
     height: 100%;
     width: 70%;
-    margin: 15px;
+    margin: 5px;
     background-color: deepskyblue;
+    overflow: hidden;
+}
+
+[wm-Stats] {
+
+    position: relative;
+    border: 5px solid dodgerblue;
+    height: 100%;
+    width: 30%;
+    margin: 5px;
+    background-color: crimson;
     overflow: hidden;
 }
 
