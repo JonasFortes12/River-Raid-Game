@@ -139,7 +139,7 @@ function DrawBarries(barrie){ // recebe a matrix da barreira específica (cenár
 
     this.gameContext.style.width = "100%";
     this.gameContext.style.height = "100%";
-    this.gameContext.style.top = "-500px";
+    this.gameContext.style.top = "-685px";
 
 
     for(let row in barrie){
@@ -216,13 +216,13 @@ function Cenary() {
     
     this.animate = () =>{ 
         newCenary.animate()
+        
         if(typeof oldCenary === 'object' && oldCenary !== null){
             oldCenary.animate()
-
-            if(oldCenary.getY() == 500) oldCenary.delete()
+            if(oldCenary.getY() == 680) oldCenary.delete()
         }
 
-        if(newCenary.getY() == 0){
+        if(newCenary.getY() == 0 ){
             oldCenary = newCenary
             newCenary = this.newCenary()
         }
@@ -270,7 +270,7 @@ function Ship(){
 
     this.animate = () => {
         
-        const motion = 10 //acrescimo de pixels por movimento
+        const motion = 15 //acrescimo de pixels por movimento
         let newXposition = this.getX()
 
         if(this.goingRight){
