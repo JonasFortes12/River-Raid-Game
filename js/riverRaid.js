@@ -353,10 +353,62 @@ function Collid() {
 
     }
 
+    this.isGetElementFuel = () => {
+
+        let shipElement = document.getElementById("myShip")
+        let fuelsLenght = document.getElementsByClassName("fuel").length
+
+        for (let i = 0; i < fuelsLenght; i++) {
+            let fuelElement = document.getElementsByClassName("fuel")[i]
+            const a = shipElement.getBoundingClientRect()
+            const b = fuelElement.getBoundingClientRect()
+            const horizontal = a.left + a.width >= b.left && b.left + b.width >= a.left
+            const vertical = a.top + a.height >= b.top && b.top + b.height >= a.top
+
+            if (horizontal && vertical)
+                return true
+        }
+        return false
+
+    }
+
+    this.isGetElementBonus = () => {
+
+        let shipElement = document.getElementById("myShip")
+        let bonusLenght = document.getElementsByClassName("bonus").length
+
+        for (let i = 0; i < bonusLenght; i++) {
+            let bonusElement = document.getElementsByClassName("bonus")[i]
+            const a = shipElement.getBoundingClientRect()
+            const b = bonusElement.getBoundingClientRect()
+            const horizontal = a.left + a.width >= b.left && b.left + b.width >= a.left
+            const vertical = a.top + a.height >= b.top && b.top + b.height >= a.top
+
+            if (horizontal && vertical)
+                return true
+        }
+        return false
+
+    }
+
     this.verifyCollid = () => {
 
         if (this.isColliding())
             window.location.reload(true);
+
+    }
+
+    this.verifyGetElementFuel = () => {
+
+        if (this.isGetElementFuel())
+            alert("COmbustível!!")
+
+    }
+
+    this.verifyGetElementBonus = () => {
+
+        if (this.isGetElementBonus())
+            alert("Bonusss!!")
 
     }
 
@@ -414,13 +466,13 @@ function RiverRaid() {
 
     this.play = () => {
 
-        new DrawBarries(new Barries().bifurcation)
-
         const timer = setInterval(() => {
             ship.animate()
             if (playing) {
                 cenary.animate()
                 // collid.verifyCollid()
+                collid.verifyGetElementFuel()
+                collid.verifyGetElementBonus()
             }
         }, 20)
     }
