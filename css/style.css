@@ -56,3 +56,13 @@ body{
     top: calc(75% - 30px);
 }
 
+
+.imgBonus {
+    width: 150%;  
+}
+
+.imgFuel {
+    width: 150%;
+}
+
+

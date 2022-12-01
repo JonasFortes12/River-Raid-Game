@@ -128,29 +128,50 @@ function Barries() {
 
 }
 
-function DrawBarries(barrie) { // recebe a matrix da barreira específica (cenário)
+function DrawBarries(barrie) { // recebe a matriz da barreira específica (cenário)
 
     this.gameContext = newElement("div", "barrieStyle")
     this.gameContext.style.position = `absolute`
     this.gameContext.style.display = `grid`
     this.gameContext.style.gridTemplateColumns = `repeat(20, 1fr)`;
     this.gameContext.style.gridTemplateRows = `repeat(20, 1fr)`;
-
     this.gameContext.style.width = "100%";
     this.gameContext.style.height = "100%";
     this.gameContext.style.top = "-685px";
 
-    let numBarrie = -1
+    this.barrie = barrie
 
-    for (let row in barrie) {
-        for (let column in barrie[row]) {
+    this.addElementBonus = () => {
+
+        let positions = SortPosition(this.barrie)
+
+        while (this.barrie[positions[0]][positions[1]] != 0) {
+            positions = SortPosition(this.barrie)
+        }
+        this.barrie[positions[0]][positions[1]] = 2
+    }
+
+    this.addElementFuel = () => {
+
+        let positions = SortPosition(this.barrie)
+
+        while (this.barrie[positions[0]][positions[1]] != 0) {
+            positions = SortPosition(this.barrie)
+        }
+        this.barrie[positions[0]][positions[1]] = 3
+    }
+
+    this.addElementBonus()
+    this.addElementFuel()
 
 
-            let tile = barrie[row][column] //bloquinho
+    for (let row in this.barrie) {
+        for (let column in this.barrie[row]) {
+
+            let tile = this.barrie[row][column] //bloquinho
 
             if (tile === 1) {
-                numBarrie++
-                let elementTile = newElement("div", "barrie", `barrie${numBarrie}`)
+                let elementTile = newElement("div", "barrie")
                 elementTile.style.backgroundColor = "green"
                 this.gameContext.appendChild(elementTile)
 
@@ -159,11 +180,29 @@ function DrawBarries(barrie) { // recebe a matrix da barreira específica (cená
                 elementTile.style.backgroundColor = "deepskyblue"
                 this.gameContext.appendChild(elementTile)
 
+            } else if (tile === 2) {
+                let elementTile = newElement("div", "bonus")
+                let imgBonus = newElement('img', 'imgBonus')
+                imgBonus.src = 'imgs/lunático.png'
+                elementTile.style.backgroundColor = "deepskyblue"
+                elementTile.appendChild(imgBonus)
+                this.gameContext.appendChild(elementTile)
+
+            } else if (tile === 3) {
+                let elementTile = newElement("div", "fuel")
+                let imgFuel = newElement('img', 'imgFuel')
+                imgFuel.src = 'imgs/miniverso.png'
+                elementTile.style.backgroundColor = "deepskyblue"
+                elementTile.appendChild(imgFuel)
+                this.gameContext.appendChild(elementTile)
+
             }
+
+
         }
     }
 
-    // gameArea.appendChild(this.gameContext)
+
     gameArea.insertAdjacentElement('afterbegin', this.gameContext);
 
     this.getY = () => parseInt(this.gameContext.style.top.split('px')[0]);
@@ -187,6 +226,14 @@ function DrawBarries(barrie) { // recebe a matrix da barreira específica (cená
         this.gameContext.parentNode.removeChild(this.gameContext)
     }
 
+}
+
+function SortPosition(barrie) {
+
+    let rowPosition = Math.floor(Math.random() * barrie.length)
+    let columnPosition = Math.floor(Math.random() * barrie[rowPosition].length)
+
+    return [rowPosition, columnPosition]
 }
 
 function SortBarries(barries) { // recebe o objeto que contem todas as barreiras (cenários)
@@ -329,7 +376,7 @@ function Stats() {
     this.btPlay = newElement("button", "btPlay")
     this.btPlay.appendChild(document.createTextNode("JOGAR"))
     this.btPlay.onclick = () => {
-       playing = !playing
+        playing = !playing
     }
 
     statsArea.style.display = 'flex'
@@ -363,6 +410,9 @@ function RiverRaid() {
     const collid = new Collid()
 
     this.play = () => {
+
+        new DrawBarries(new Barries().bifurcation)
+
         const timer = setInterval(() => {
             ship.animate()
             if (playing) {
@@ -372,16 +422,7 @@ function RiverRaid() {
         }, 20)
     }
 
-    // this.stop = () => {
-    //     playing = false
-        
-    // }
-    // this.start = () => {
-    //     playing = true
-        
-    // }
-    
 }
 
 
-let riverRaid = new RiverRaid().play()
+new RiverRaid().play()
