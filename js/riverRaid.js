@@ -141,6 +141,9 @@ function DrawBarries(barrie) { // recebe a matriz da barreira específica (cená
 
     this.barrie = barrie
 
+    // console.log(this.barrie)
+    
+
     this.addElementBonus = () => {
 
         let positions = SortPosition(this.barrie)
@@ -238,21 +241,21 @@ function SortPosition(barrie) {
 
 function SortBarries(barries) { // recebe o objeto que contem todas as barreiras (cenários)
 
-    this.arrBarries = [
+    let arrBarries = [
         barries.bifurcation,
         barries.zigzag,
         barries.midle,
         barries.toright,
         barries.toleft
     ]
-    let i = Math.floor(Math.random() * this.arrBarries.length)
-    return this.arrBarries[i] // retorna uma barreira aleatória
+    let i = Math.floor(Math.random() * arrBarries.length)
+    return arrBarries[i] // retorna uma barreira aleatória
 }
 
 function Cenary() {
-    const barries = new Barries()
-
+    
     this.newCenary = () => {
+        const barries = new Barries()
         return new DrawBarries(SortBarries(barries))
     }
 
@@ -265,7 +268,7 @@ function Cenary() {
 
         if (typeof oldCenary === 'object' && oldCenary !== null) {
             oldCenary.animate()
-            if (oldCenary.getY() == 680) oldCenary.delete()
+            if (oldCenary.getY() > 680) oldCenary.delete()
         }
 
         if (newCenary.getY() == 0) {
@@ -417,7 +420,7 @@ function RiverRaid() {
             ship.animate()
             if (playing) {
                 cenary.animate()
-                collid.verifyCollid()
+                // collid.verifyCollid()
             }
         }, 20)
     }
