@@ -14,7 +14,7 @@ html {
     height: 100%;
 }
 
-body{
+body {
     margin: 0;
     background-color: #0D262D;
     color: #fff;
@@ -56,13 +56,52 @@ body{
     top: calc(75% - 30px);
 }
 
-
 .imgBonus {
-    width: 100%;  
+    width: 100%;
 }
 
 .imgFuel {
     width: 100%;
 }
 
+.title {
+    color: #0D262D;
+    font-size: 50px;
+    padding: 5%;
 
+}
+
+.points {
+    color: #0D262D;
+    font-size: 25px;
+    padding: 5%;
+}
+
+
+.progressBarFuel {
+    --levelFuel: 100;
+    height: 50px;
+    width: 50%;
+    padding: 2px;
+    background-color: #0D262D;
+    display: flex;
+}
+
+.progressBarFuel::before {
+    content: "";
+    width: calc((var(--levelFuel) * 1%));
+    background-color: hsl(calc(var(--levelFuel) * 1.2), 80%, 50%);
+}
+
+.titleFuel{
+    font-size: 20px;
+    color: #0D262D;
+    font-weight: bolder;
+}
+
+.btPlay {
+
+    padding: 5% 15% 5% 15%;
+    margin-top: 50%;
+    border-radius: 60px;
+}

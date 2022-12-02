@@ -286,7 +286,7 @@ function Ship() {
     this.goingLeft = false
 
     this.element = newElement('img', 'ship', 'myShip')
-    this.element.src = 'imgs/nave.png'
+    this.element.src = 'imgs/fadinha.png'
     this.element.style.right = "500%"
 
     this.getX = () => parseInt(this.element.style.right.split('px')[0])
@@ -423,31 +423,36 @@ function Collid() {
 }
 
 function Stats() {
-
+    // -------------- Título ---------------
     this.title = newElement("div", "title")
     this.title.append("River Raid")
-    this.title.style.color = 'Black'
-    // this.title.style.fontWeight = 'bold'
-    this.title.style.fontSize = "50px"
 
+    // -------------- Pontuação ---------------
     this.points = newElement("div", "points")
-    this.points.append("Pontuação: 0000")
-    this.points.style.color = 'Black'
-    this.points.style.fontWeight = 'bold'
-    this.points.style.fontSize = "25px"
+    this.points.appendChild(document.createTextNode(`Pontuação: 0000`))
 
+    // -------------- Botão ---------------
     this.btPlay = newElement("button", "btPlay")
     this.btPlay.appendChild(document.createTextNode("JOGAR"))
     this.btPlay.onclick = () => {
         playing = !playing
     }
 
+    // -------------- Barra de Combustível ----------------
+    this.titleFuel = newElement("div", "titleFuel")
+    this.titleFuel.appendChild(document.createTextNode(`Combustível`))
+    this.progressBarFuel = newElement("div", "progressBarFuel")
+    
+
+    // ---------------------Config da Página---------------
     statsArea.style.display = 'flex'
     statsArea.style.flexDirection = 'column'
     statsArea.style.justifyContent = 'flex-start'
     statsArea.style.alignItems = 'center'
     statsArea.appendChild(this.title)
     statsArea.appendChild(this.points)
+    statsArea.appendChild(this.titleFuel)
+    statsArea.appendChild(this.progressBarFuel)
     statsArea.appendChild(this.btPlay)
 
     // --------------------Métodos-------------------------------
@@ -455,7 +460,18 @@ function Stats() {
     this.updatePoints = (points) => {
         this.points.removeChild(this.points.firstChild);
         this.points.appendChild(document.createTextNode(`Pontuação: ${points}`))
+    }
 
+    this.getLevelFuel = () => {
+        return parseFloat(getComputedStyle(document.querySelector('.progressBarFuel')).getPropertyValue('--levelFuel'))
+    }
+
+    this.setLevelFuel = (fuel) => {
+        this.progressBarFuel.style.setProperty('--levelFuel', `${fuel}`)
+    }
+
+    this.spendLevelFuel = () => {
+        this.setLevelFuel(this.getLevelFuel() - 0.3)
     }
 
 
@@ -481,6 +497,7 @@ function RiverRaid() {
                 // collid.verifyCollid()
                 collid.verifyGetElementFuel()
                 collid.verifyGetElementBonus()
+                stats.spendLevelFuel()
             }
         }, 20)
     }
