@@ -365,8 +365,10 @@ function Collid() {
             const horizontal = a.left + a.width >= b.left && b.left + b.width >= a.left
             const vertical = a.top + a.height >= b.top && b.top + b.height >= a.top
 
-            if (horizontal && vertical)
+            if (horizontal && vertical){
+                fuelElement.removeChild(fuelElement.firstChild)
                 return true
+            }
         }
         return false
 
@@ -384,8 +386,10 @@ function Collid() {
             const horizontal = a.left + a.width >= b.left && b.left + b.width >= a.left
             const vertical = a.top + a.height >= b.top && b.top + b.height >= a.top
 
-            if (horizontal && vertical)
+            if (horizontal && vertical){
+                bonusElement.removeChild(bonusElement.firstChild)
                 return true
+            }
         }
         return false
 
@@ -394,21 +398,25 @@ function Collid() {
     this.verifyCollid = () => {
 
         if (this.isColliding())
-            window.location.reload(true);
+            window.location.reload(true)
 
     }
 
     this.verifyGetElementFuel = () => {
 
-        if (this.isGetElementFuel())
-            alert("COmbustível!!")
+        if (this.isGetElementFuel()){
+            // alert("COmbustível!!")
+        }
+            
 
     }
 
     this.verifyGetElementBonus = () => {
 
-        if (this.isGetElementBonus())
-            alert("Bonusss!!")
+        if (this.isGetElementBonus()){
+            
+            // alert("Bonusss!!")
+        }
 
     }
 
