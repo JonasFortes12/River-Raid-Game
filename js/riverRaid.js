@@ -402,7 +402,6 @@ function Collid() {
     this.verifyCollid = () => {
 
         if (this.isColliding()){
-            playing = false
             stats.gameOver()
         }
             
@@ -486,7 +485,7 @@ function Stats() {
     this.verifyLevelFuel = () => {
         let level = this.getLevelFuel()
         if(level < 0){
-            window.location.reload(true)
+            this.gameOver()
         }
     }
 
@@ -518,7 +517,7 @@ function Stats() {
             window.location.reload(true)
         }
         statsArea.appendChild(this.btRestart)
-        
+        playing = false
     }
 
 
