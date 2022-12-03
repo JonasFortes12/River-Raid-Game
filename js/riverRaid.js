@@ -290,7 +290,7 @@ function Ship() {
     this.goingLeft = false
 
     this.element = newElement('img', 'ship', 'myShip')
-    this.element.src = 'imgs/fadinha.png'
+    this.element.src = 'imgs/nave.png'
     this.element.style.right = "500%"
 
     this.getX = () => parseInt(this.element.style.right.split('px')[0])
@@ -401,8 +401,11 @@ function Collid() {
 
     this.verifyCollid = () => {
 
-        if (this.isColliding())
-            window.location.reload(true)
+        if (this.isColliding()){
+            playing = false
+            stats.gameOver()
+        }
+            
 
     }
 
@@ -441,7 +444,8 @@ function Stats() {
     this.btPlay = newElement("button", "btPlay")
     this.btPlay.appendChild(document.createTextNode("JOGAR"))
     this.btPlay.onclick = () => {
-        playing = !playing
+        playing = true
+        document.querySelector('.btPlay').style.display = 'none'
     }
 
     // -------------- Barra de Combustível ----------------
@@ -502,6 +506,21 @@ function Stats() {
         this.points.appendChild(document.createTextNode(`Pontuação: ${playerPoints}`))
     }
 
+    this.gameOver = () => {
+        
+        this.imgGameOver = newElement("img", "imgGameOver")
+        this.imgGameOver.src = 'imgs/gameover.jpg'
+        statsArea.appendChild(this.imgGameOver)
+
+        this.btRestart = newElement("button", "btRestart")
+        this.btRestart.appendChild(document.createTextNode("Tentar Novamente"))
+        this.btRestart.onclick = () => {
+            window.location.reload(true)
+        }
+        statsArea.appendChild(this.btRestart)
+        
+    }
+
 
 }
 
@@ -519,10 +538,10 @@ function RiverRaid() {
     this.play = () => {
 
         const timer = setInterval(() => {
-            ship.animate()
             if (playing) {
+                ship.animate()
                 cenary.animate()
-                // collid.verifyCollid()
+                collid.verifyCollid()
                 collid.verifyGetElementFuel()
                 collid.verifyGetElementBonus()
                 stats.spendLevelFuel()
