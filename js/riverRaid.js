@@ -7,6 +7,7 @@ function newElement(tagName, className, idName) {
 
 const gameArea = document.querySelector('[wm-RiverRaid]')
 const statsArea = document.querySelector('[wm-Stats]')
+const stats = new Stats()
 let playing = false
 
 function Barries() {
@@ -268,7 +269,10 @@ function Cenary() {
 
         if (typeof oldCenary === 'object' && oldCenary !== null) {
             oldCenary.animate()
-            if (oldCenary.getY() > 680) oldCenary.delete()
+            if (oldCenary.getY() > 680){
+                stats.updatePoints()
+                oldCenary.delete()
+            } 
         }
 
         if (newCenary.getY() == 0) {
@@ -405,7 +409,7 @@ function Collid() {
     this.verifyGetElementFuel = () => {
 
         if (this.isGetElementFuel()){
-            // alert("COmbustível!!")
+            stats.addLevelFuel()
         }
             
 
@@ -414,8 +418,7 @@ function Collid() {
     this.verifyGetElementBonus = () => {
 
         if (this.isGetElementBonus()){
-            
-            // alert("Bonusss!!")
+            stats.addPoints()
         }
 
     }
@@ -423,13 +426,16 @@ function Collid() {
 }
 
 function Stats() {
+    
+    let playerPoints = 0
+    
     // -------------- Título ---------------
     this.title = newElement("div", "title")
     this.title.append("River Raid")
 
     // -------------- Pontuação ---------------
     this.points = newElement("div", "points")
-    this.points.appendChild(document.createTextNode(`Pontuação: 0000`))
+    this.points.appendChild(document.createTextNode(`Pontuação: ${playerPoints}`))
 
     // -------------- Botão ---------------
     this.btPlay = newElement("button", "btPlay")
@@ -457,11 +463,6 @@ function Stats() {
 
     // --------------------Métodos-------------------------------
 
-    this.updatePoints = (points) => {
-        this.points.removeChild(this.points.firstChild);
-        this.points.appendChild(document.createTextNode(`Pontuação: ${points}`))
-    }
-
     this.getLevelFuel = () => {
         return parseFloat(getComputedStyle(document.querySelector('.progressBarFuel')).getPropertyValue('--levelFuel'))
     }
@@ -471,7 +472,34 @@ function Stats() {
     }
 
     this.spendLevelFuel = () => {
-        this.setLevelFuel(this.getLevelFuel() - 0.3)
+        this.setLevelFuel(this.getLevelFuel() - 0.2)
+    }
+
+    this.addLevelFuel = () => {
+        this.setLevelFuel(this.getLevelFuel() + 20)
+    }
+
+    this.verifyLevelFuel = () => {
+        let level = this.getLevelFuel()
+        if(level < 0){
+            window.location.reload(true)
+        }
+    }
+
+    this.getPoints = () => {
+        return playerPoints
+    }
+
+    this.updatePoints = () => {
+        playerPoints += 10
+        this.points.removeChild(this.points.firstChild);
+        this.points.appendChild(document.createTextNode(`Pontuação: ${playerPoints}`))
+    }
+
+    this.addPoints = () => {
+        playerPoints += 100
+        this.points.removeChild(this.points.firstChild);
+        this.points.appendChild(document.createTextNode(`Pontuação: ${playerPoints}`))
     }
 
 
@@ -482,7 +510,7 @@ function RiverRaid() {
 
     const cenary = new Cenary()
     const ship = new Ship()
-    const stats = new Stats()
+    
 
     gameArea.appendChild(ship.element)
 
@@ -498,6 +526,7 @@ function RiverRaid() {
                 collid.verifyGetElementFuel()
                 collid.verifyGetElementBonus()
                 stats.spendLevelFuel()
+                stats.verifyLevelFuel()
             }
         }, 20)
     }
