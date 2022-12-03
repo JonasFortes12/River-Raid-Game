@@ -409,9 +409,9 @@ function Collid() {
     }
 
     this.verifyGetElementFuel = () => {
-
         if (this.isGetElementFuel()){
             stats.addLevelFuel()
+            stats.addCountFuel()
         }
             
 
@@ -430,6 +430,7 @@ function Collid() {
 function Stats() {
     
     let playerPoints = 0
+    let countFuel = 0
     
     // -------------- Título ---------------
     this.title = newElement("div", "title")
@@ -449,11 +450,18 @@ function Stats() {
 
     // -------------- Barra de Combustível ----------------
     this.titleFuel = newElement("div", "titleFuel")
+    this.fuelImg = newElement("img", "fuelImg") 
+    this.fuelImg.src = 'imgs/miniverso.png'
+    this.fuelCount = newElement("div", "fuelCount")
+    this.fuelCount.appendChild(document.createTextNode(`${countFuel}`))
     this.titleFuel.appendChild(document.createTextNode(`Combustível`))
+    this.titleFuel.appendChild(this.fuelImg)
+    this.titleFuel.appendChild(this.fuelCount)
+    
     this.progressBarFuel = newElement("div", "progressBarFuel")
     
 
-    // ---------------------Config da Página---------------
+    // ---------------------Config da Página Stats---------------
     statsArea.style.display = 'flex'
     statsArea.style.flexDirection = 'column'
     statsArea.style.justifyContent = 'flex-start'
@@ -503,6 +511,12 @@ function Stats() {
         playerPoints += 100
         this.points.removeChild(this.points.firstChild);
         this.points.appendChild(document.createTextNode(`Pontuação: ${playerPoints}`))
+    }
+
+    this.addCountFuel = () => {
+       countFuel += 1
+       this.fuelCount.removeChild(this.fuelCount.firstChild);
+       this.fuelCount.appendChild(document.createTextNode(`${countFuel}`))
     }
 
     this.gameOver = () => {
