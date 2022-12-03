@@ -1,13 +1,9 @@
-@font-face {
-    font-family: 'Oswald';
-    src: url('fonts/Oswald-Regular.ttf') format('truetype');
-    font-family: 'Pixel';
-    src: url("fontes/Pixel.ttf");
-}
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
+
+
 
 * {
-    font-family: 'Oswald', sans-serif;
-    box-sizing: border-box;
+    font-family: 'Kalam', cursive;
 }
 
 html {
@@ -31,22 +27,23 @@ body {
 [wm-RiverRaid] {
 
     position: relative;
-    border: 5px solid dodgerblue;
+    border: 5px solid #0D262D;
     height: 100%;
     width: 70%;
-    margin: 5px;
-    background-color: deepskyblue;
+    /* margin: 5px; */
+    /* background-color: #24325FFF; */
+    background-image: url(/./imgs/init.png);
     overflow: hidden;
 }
 
 [wm-Stats] {
 
     position: relative;
-    border: 5px solid dodgerblue;
+    border: 5px solid #0D262D;
     height: 100%;
     width: 30%;
-    margin: 5px;
-    background-color: crimson;
+    /* margin: 5px; */
+    background-color: #24325FFF;
     overflow: hidden;
 }
 
@@ -64,19 +61,23 @@ body {
     width: 100%;
 }
 
+.imgBarrie{
+    width: 100%;
+}
+
 .title {
-    color: #0D262D;
+    color: #FAFD7CFF;
     font-size: 50px;
-    padding: 5%;
+    padding-top: 5%;
+    padding-bottom: 0%;
 
 }
 
 .points {
-    color: #0D262D;
-    font-size: 25px;
+    color: #FAFD7CFF;
+    font-size: 30px;
     padding: 5%;
 }
-
 
 .progressBarFuel {
     --levelFuel: 100;
@@ -93,40 +94,53 @@ body {
     background-color: hsl(calc(var(--levelFuel) * 1.2), 80%, 50%);
 }
 
-.titleFuel{
+.titleFuel {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    
-    font-size: 20px;
-    color: #0D262D;
+
+    font-size: 25px;
+    color: #FAFD7CFF;
     font-weight: bolder;
     /* margin-left: 25%; */
     margin-bottom: 1%;
 }
-.titleFuel img{
-    width: 15%;
 
-    margin-left: 10%;
+.titleFuel img {
+    width: 20%;
+
+    margin-left: 7%;
     margin-right: 2%;
 }
 
-
 .btPlay {
-
-    padding: 5% 15% 5% 15%;
-    margin-top: 80%;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 3% 15% 3% 15%;
+    margin-top: 78%;
     border-radius: 60px;
+    background-color: #FAFD7CFF;
+    color: #24325FFF;
 }
+
+
 
 .btRestart {
-
-    padding: 5% 15% 5% 15%;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 3% 15% 3% 15%;
     margin-top: 5%;
     border-radius: 60px;
+    background-color: #FAFD7CFF;
+    color: #24325FFF;
 }
 
-.imgGameOver{
-    margin-top: 10%;
+.btPlay:hover,
+.btRestart:hover {
+    background-color: #FB6467FF;
+}
+
+.imgGameOver {
+    margin-top: 5%;
     width: 70%;
 }

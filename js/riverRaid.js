@@ -176,19 +176,20 @@ function DrawBarries(barrie) { // recebe a matriz da barreira específica (cená
 
             if (tile === 1) {
                 let elementTile = newElement("div", "barrie")
-                elementTile.style.backgroundColor = "green"
+                elementTile.style.backgroundColor = "#FAFD7CFF"
                 this.gameContext.appendChild(elementTile)
 
             } else if (tile === 0) {
                 let elementTile = newElement("div", "air")
-                elementTile.style.backgroundColor = "deepskyblue"
+                // elementTile.style.backgroundColor = "#24325FFF"
+                elementTile.style.backgroundImage = 'url(imgs/space.jpg)'
                 this.gameContext.appendChild(elementTile)
 
             } else if (tile === 2) {
                 let elementTile = newElement("div", "bonus")
                 let imgBonus = newElement('img', 'imgBonus')
                 imgBonus.src = 'imgs/lunático.png'
-                elementTile.style.backgroundColor = "deepskyblue"
+                elementTile.style.backgroundColor = "#01000D"
                 elementTile.appendChild(imgBonus)
                 this.gameContext.appendChild(elementTile)
 
@@ -196,7 +197,7 @@ function DrawBarries(barrie) { // recebe a matriz da barreira específica (cená
                 let elementTile = newElement("div", "fuel")
                 let imgFuel = newElement('img', 'imgFuel')
                 imgFuel.src = 'imgs/miniverso.png'
-                elementTile.style.backgroundColor = "deepskyblue"
+                elementTile.style.backgroundColor = "#01000D"
                 elementTile.appendChild(imgFuel)
                 this.gameContext.appendChild(elementTile)
 
@@ -442,7 +443,7 @@ function Stats() {
 
     // -------------- Botão ---------------
     this.btPlay = newElement("button", "btPlay")
-    this.btPlay.appendChild(document.createTextNode("JOGAR"))
+    this.btPlay.appendChild(document.createTextNode("Jogar"))
     this.btPlay.onclick = () => {
         playing = true
         document.querySelector('.btPlay').style.display = 'none'
