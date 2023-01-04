@@ -38,10 +38,10 @@
 
 
 #### Cores
-<h5 style="color: #0D262D;">#00D262D</h5>
-<h5 style="color: #FAFD7CFF;">#FAFD7CFF</h5>
-<h5 style="color: #24325FF;">#24325FF</h5>
-<h5 style="color: #FB6467FF;">#FB6467FF</h5>
+<h5 style="display: inline; color: white; background-color:#0D262D; b">#00D262D</h5>
+<h5 style="display: inline; color: black; background-color:#FAFD7CFF; b">#FAFD7CFF</h5>
+<h5 style="display: inline; color: black; background-color:#24325FF; b">#24325FF</h5>
+<h5 style="display: inline; color: black; background-color:#FB6467FF; b">#FB6467FF</h5>
 
 
 <br>
