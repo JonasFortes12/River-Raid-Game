@@ -1,2 +1,2 @@
 # River-Raid-Game
-Jogo desenvolvido com JavaScript para a 2ª avaliação da disciplina de Técnicas Web
+Jogo desenvolvido com JavaScript para a 2ª avaliação da disciplina de Tecnologias Web
